@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+/* --- Functions Count --- */
+
 const functionsCountResponse = await fetch(
   new URL("/api/function/get-count", Astro.url.origin),
   {
@@ -10,11 +12,26 @@ const functionsCountResponse = await fetch(
     },
   }
 );
-
 if (!functionsCountResponse.ok) {
   throw new Error("Failed to fetch functions count");
 }
 const { count: functionsCount } = await functionsCountResponse.json();
+
+/* --- Edge Functions Count --- */
+
+const edgeFunctionsCountResponse = await fetch(
+  new URL("/api/edge-function/get-count", Astro.url.origin),
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.API_KEY!,
+    },
+  }
+);
+if (!edgeFunctionsCountResponse.ok) {
+  throw new Error("Failed to fetch functions count");
+}
+const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
 ---
 
 <Layout title="Astro + Netlify Blobs">
@@ -29,7 +46,7 @@ const { count: functionsCount } = await functionsCountResponse.json();
 
       <div class="count-group">
         <span class="label">Edge Functions:</span>
-        <code class="value">TBD</code>
+        <code class="value">{edgeFunctionsCount}</code>
       </div>
 
       <div class="count-group">
