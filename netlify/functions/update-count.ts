@@ -27,12 +27,9 @@ export default async (request: Request) => {
   const countBlob = await store.get("functions/count");
   const currentCount = parseInt(countBlob || "0");
 
-  console.log(currentCount, body.action);
-
   // Increment the count
   const newCount =
     body.action === "increment" ? currentCount + 1 : currentCount - 1;
-  console.log("New count:", newCount);
 
   // Save the new count
   await store.set("functions/count", newCount.toString());

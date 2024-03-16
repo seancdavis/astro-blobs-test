@@ -32,6 +32,22 @@ if (!edgeFunctionsCountResponse.ok) {
   throw new Error("Failed to fetch functions count");
 }
 const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
+
+/* --- Astro API Route Count --- */
+
+const astroRouteCountResponse = await fetch(
+  new URL("/api/astro-route/get-count", Astro.url.origin),
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.API_KEY!,
+    },
+  }
+);
+if (!astroRouteCountResponse.ok) {
+  throw new Error("Failed to fetch functions count");
+}
+const { count: astroRouteCount } = await astroRouteCountResponse.json();
 ---
 
 <Layout title="Astro + Netlify Blobs">
@@ -72,7 +88,17 @@ const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
 
       <div class="count-group">
         <span class="label">Astro Route:</span>
-        <code class="value">TBD</code>
+        <code class="value">{astroRouteCount}</code>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="astroRoute" />
+          <input type="hidden" name="action" value="decrement" />
+          <button type="submit">-</button>
+        </form>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="astroRoute" />
+          <input type="hidden" name="action" value="increment" />
+          <button type="submit">+</button>
+        </form>
       </div>
 
       <!-- <form action="/actions/update-count" method="post">
