@@ -20,6 +20,8 @@ export default async (request: Request) => {
   const countBlob = await store.get("functions/count");
   const count = parseInt(countBlob || "0");
 
+  console.log("[function] Fetch page count:", count);
+
   // Return the count
   return new Response(JSON.stringify({ count }), {
     headers: { "Content-Type": "application/json" },

@@ -17,6 +17,8 @@ if (!functionsCountResponse.ok) {
 }
 const { count: functionsCount } = await functionsCountResponse.json();
 
+console.log("[home] Functions count:", functionsCount);
+
 /* --- Edge Functions Count --- */
 
 const edgeFunctionsCountResponse = await fetch(
