@@ -16,5 +16,8 @@
     "@netlify/functions": "^2.6.0",
     "astro": "^4.5.5",
     "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.28"
   }
 }
