@@ -39,14 +39,35 @@ const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
     <h1>Astro + Netlify Blobs</h1>
 
     <div>
+      <!-- Functions -->
       <div class="count-group">
         <span class="label">Functions:</span>
         <code class="value">{functionsCount}</code>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="function" />
+          <input type="hidden" name="action" value="decrement" />
+          <button type="submit">-</button>
+        </form>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="function" />
+          <input type="hidden" name="action" value="increment" />
+          <button type="submit">+</button>
+        </form>
       </div>
 
       <div class="count-group">
         <span class="label">Edge Functions:</span>
         <code class="value">{edgeFunctionsCount}</code>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="edgeFunction" />
+          <input type="hidden" name="action" value="decrement" />
+          <button type="submit">-</button>
+        </form>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="edgeFunction" />
+          <input type="hidden" name="action" value="increment" />
+          <button type="submit">+</button>
+        </form>
       </div>
 
       <div class="count-group">
@@ -54,7 +75,7 @@ const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
         <code class="value">TBD</code>
       </div>
 
-      <form action="/actions/update-count" method="post">
+      <!-- <form action="/actions/update-count" method="post">
         <h2>Update Count</h2>
         <div class="form-group">
           <label for="countType">Count Type:</label>
@@ -72,7 +93,7 @@ const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
           </select>
         </div>
         <button type="submit">Update Count</button>
-      </form>
+      </form> -->
     </div>
   </main>
 </Layout>
