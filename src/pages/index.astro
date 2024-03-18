@@ -31,7 +31,7 @@ const edgeFunctionsCountResponse = await fetch(
   }
 );
 if (!edgeFunctionsCountResponse.ok) {
-  throw new Error("Failed to fetch functions count");
+  throw new Error("Failed to fetch edge functions count");
 }
 const { count: edgeFunctionsCount } = await edgeFunctionsCountResponse.json();
 
@@ -47,7 +47,7 @@ const astroRouteCountResponse = await fetch(
   }
 );
 if (!astroRouteCountResponse.ok) {
-  throw new Error("Failed to fetch functions count");
+  throw new Error("Failed to fetch astro route count");
 }
 const { count: astroRouteCount } = await astroRouteCountResponse.json();
 ---

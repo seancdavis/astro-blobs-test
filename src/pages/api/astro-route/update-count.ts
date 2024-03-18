@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, url, redirect }) => {
   }
 
   // Get the count from the store
-  const store = getStore({ name: "Counter", consistency: "strong" });
+  const store = getStore("Counter");
   const countBlob = await store.get("astro-route/count");
   const currentCount = parseInt(countBlob || "0");
 
