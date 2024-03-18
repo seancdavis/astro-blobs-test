@@ -16,7 +16,7 @@ export default async (request: Request) => {
   }
 
   // Get the count from the store
-  const store = getStore("Counter");
+  const store = getStore({ name: "Counter", consistency: "strong" });
   const countBlob = await store.get("edge-functions/count");
   const count = parseInt(countBlob || "0");
 

@@ -29,7 +29,7 @@ export const POST: APIRoute = async ({ request, url, redirect }) => {
   });
 
   // Get function count from the store
-  // const store = getStore("Counter");
+  // const store = getStore({ name: "Counter", consistency: "strong" });
   // const countBlob = await store.get("functions/count");
   // const count = parseInt(countBlob || "0");
   // console.log("[action update-count] Fetch page count:", count);
