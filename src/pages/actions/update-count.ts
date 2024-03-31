@@ -1,10 +1,10 @@
-import { getStore } from "@netlify/blobs";
 import type { APIRoute } from "astro";
 
 const countTypeUrlMap = {
   function: "/api/function/update-count",
   edgeFunction: "/api/edge-function/update-count",
   astroRoute: "/api/astro-route/update-count",
+  astroDb: "/api/astro-db/update-count",
 };
 
 export const POST: APIRoute = async ({ request, url, redirect }) => {
@@ -18,6 +18,10 @@ export const POST: APIRoute = async ({ request, url, redirect }) => {
   }
 
   const apiRequestPath = countTypeUrlMap[type as keyof typeof countTypeUrlMap];
+
+  if (!apiRequestPath) {
+    return new Response("Bad request", { status: 400 });
+  }
 
   await fetch(new URL(apiRequestPath, url.origin), {
     headers: {

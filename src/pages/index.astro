@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 // const functionsCount = 0;
 // const edgeFunctionsCount = 0;
 // const astroRouteCount = 0;
+// const astroDbCount = 0;
 
 /* --- Functions Count --- */
 
@@ -54,6 +55,22 @@ if (!astroRouteCountResponse.ok) {
   throw new Error("Failed to fetch astro route count");
 }
 const { count: astroRouteCount } = await astroRouteCountResponse.json();
+
+/* --- Astro DB Count --- */
+
+const astroDbCountResponse = await fetch(
+  new URL("/api/astro-db/get-count", Astro.url.origin),
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": process.env.API_KEY!,
+    },
+  }
+);
+if (!astroDbCountResponse.ok) {
+  throw new Error("Failed to fetch astro db count");
+}
+const { count: astroDbCount } = await astroDbCountResponse.json();
 ---
 
 <Layout title="Astro + Netlify Blobs">
@@ -107,25 +124,20 @@ const { count: astroRouteCount } = await astroRouteCountResponse.json();
         </form>
       </div>
 
-      <!-- <form action="/actions/update-count" method="post">
-        <h2>Update Count</h2>
-        <div class="form-group">
-          <label for="countType">Count Type:</label>
-          <select name="countType" id="countType" required>
-            <option value="function">Function</option>
-            <option value="edgeFunction">Edge Function</option>
-            <option value="astroRoute">Astro Route</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="countType">Action:</label>
-          <select name="action" id="action" required>
-            <option value="increment">Increment</option>
-            <option value="decrement">Decrement</option>
-          </select>
-        </div>
-        <button type="submit">Update Count</button>
-      </form> -->
+      <div class="count-group">
+        <span class="label">Astro DB:</span>
+        <code class="value">{astroDbCount}</code>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="astroDb" />
+          <input type="hidden" name="action" value="decrement" />
+          <button type="submit">-</button>
+        </form>
+        <form action="/actions/update-count" method="post">
+          <input type="hidden" name="countType" value="astroDb" />
+          <input type="hidden" name="action" value="increment" />
+          <button type="submit">+</button>
+        </form>
+      </div>
     </div>
   </main>
 </Layout>
